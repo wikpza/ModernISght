@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  database:
+    image: mongo:latest
+    container_name: database
+    hostname: database
+    restart: unless-stopped
+    volumes:
+      - account-data:/data/db/
+      - account-log:/var/log/mongodb/
+    ports:
+      - "27017:27017"
+    networks:
+      - mongodb_network
+
+volumes:
+  account-data:
+    driver: local
+  account-log:
+    driver: local
+
+
+networks:
+  mongodb_network:
+    driver: bridge

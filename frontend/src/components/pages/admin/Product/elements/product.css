@@ -1,0 +1,10 @@
+.accordion_feature_list  svg{
+    width:30px;
+    height:30px;
+    fill:black;
+}
+
+.accordion_feature_list > div{
+    width:100%;
+    padding: 0 10px;
+}

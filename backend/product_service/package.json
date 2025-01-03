@@ -1,0 +1,44 @@
+{
+  "name": "product_service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc -p .",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.2.0",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/multer": "^1.4.12",
+    "@types/uuid": "^10.0.0",
+    "axios": "^1.7.7",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "kafkajs": "^2.2.4",
+    "mongoose": "^8.5.4",
+    "multer": "^1.4.5-lts.1",
+    "pino": "^9.3.2",
+    "pino-http": "^10.2.0",
+    "pino-pretty": "^11.2.2",
+    "reflect-metadata": "^0.2.2",
+    "sharp": "^0.33.5",
+    "uuid": "^10.0.0"
+  }
+}
