@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import React from 'react';
+
 import * as Dialog from "@radix-ui/react-dialog";
 import { DialogClose, DialogHeader, DialogTitle } from "../ui/dialog.tsx";
 import { AiOutlineClose } from "react-icons/ai";
@@ -7,12 +8,13 @@ import { useGetUserInfo, useUpdateMyUser } from "../../api/MyUserApi.tsx";
 import PersonalDetailForm from "../forms/PersonalDetailForm.tsx";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../main.tsx";
+import {useContext, useEffect} from "react";
 
 const ChangePersonalDetails = observer(() => {
     const [open, setOpen] = React.useState(false);
     const { user } = useContext(Context);
     const { updateUser, isLoading, isSuccess, userData } = useUpdateMyUser();
-    const { userInfo } = useGetUserInfo();
+    const { userInfo, refetch } = useGetUserInfo();
 
     useEffect(() => {
         if (isSuccess && userData) {
@@ -21,9 +23,10 @@ const ChangePersonalDetails = observer(() => {
                 firstName: userData.firstName,
                 lastName: userData.lastName,
             });
-            window.location.reload()
+            refetch()
         }
-    }, [isSuccess, userData]); // Добавьте зависимости
+    }, [isSuccess, userData]);
+
 
     return (
         <Dialog.Root open={open} onOpenChange={setOpen}>

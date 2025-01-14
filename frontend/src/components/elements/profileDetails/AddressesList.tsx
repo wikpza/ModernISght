@@ -3,16 +3,19 @@ import AddressCart from "./AddressCart.tsx";
 import {Skeleton} from "../../ui/skeleton.tsx";
 import {Card, CardContent, CardHeader} from "../../ui/card.tsx";
 import {Separator} from "../../ui/separator.tsx";
+import {QueryObserverResult, RefetchOptions, RefetchQueryFilters} from "react-query";
 
 
 
 
 type Props = {
     addresses: Address[] | undefined,
-    isLoading:boolean
+    isLoading:boolean,
+    refetch: <TPageData>(options?: ((RefetchOptions & RefetchQueryFilters<TPageData>) | undefined)) => Promise<QueryObserverResult<Address[], unknown>>
+
 }
 
-const layout = ({addresses, isLoading}:Props) => {
+const layout = ({addresses, isLoading, refetch}:Props) => {
     if(isLoading ){
         return (
             <div className="flex flex-col space-y-4">
@@ -57,7 +60,7 @@ const layout = ({addresses, isLoading}:Props) => {
             addresses.sort((a, b) => Number(b.preferred) - Number(a.preferred))
             return (
                 <div className={'flex flex-col space-y-4'}>
-                    {addresses.map((address,index) => <AddressCart key = {index} address={address}/>)}
+                    {addresses.map((address,index) => <AddressCart refetch={refetch} key = {index} address={address}/>)}
                 </div>
             )
         }

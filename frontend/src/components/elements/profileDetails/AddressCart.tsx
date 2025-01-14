@@ -4,17 +4,23 @@ import {Separator} from "../../ui/separator.tsx";
 import {GoTrash} from "react-icons/go";
 import EditAddressDialogs from "../../dialogs/EditAddressDialogs.tsx";
 import {useDeleteUserAddresses, useSetPreferredUserAddresses} from "../../../api/UserAddressesApi.tsx";
+import {QueryObserverResult, RefetchOptions, RefetchQueryFilters} from "react-query";
+import {useEffect} from "react";
 
 
 type Props = {
     address?: Address,
+    refetch: <TPageData>(options?: ((RefetchOptions & RefetchQueryFilters<TPageData>) | undefined)) => Promise<QueryObserverResult<Address[], unknown>>
 }
-const AddressCart = ({address}:Props) => {
+const AddressCart = ({address, refetch}:Props) => {
     const {setPreferredAddress, isSuccess:isSePreferredSuccess} = useSetPreferredUserAddresses()
     const {deleteAddress, isSuccess:isDeleteSuccess} = useDeleteUserAddresses()
-    if(isSePreferredSuccess || isDeleteSuccess) window.location.reload()
 
 
+
+    useEffect(() => {
+        refetch()
+    }, [isSePreferredSuccess, isDeleteSuccess]);
 
     return (
         <Card className={'border-gray-400 border rounded'}>
@@ -49,7 +55,7 @@ const AddressCart = ({address}:Props) => {
                             onClick={()=>setPreferredAddress(address?._id || "unkown_id")}
                             className={'px-3 py-1  border rounded border-gray-400'}>Set as preferred</button>
                     )}
-                    <EditAddressDialogs address={address}/>
+                    <EditAddressDialogs address={address} refetch={refetch}/>
 
                     <button className={'flex items-center py-1 px-2  border rounded border-gray-400 '}>
                         <GoTrash onClick={()=>deleteAddress(address?._id || "unkown_id")}/>

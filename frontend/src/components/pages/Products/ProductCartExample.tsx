@@ -3,6 +3,7 @@ import {useState} from "react";
 import { ProductVariant} from "../../../types.ts";
 import {Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious} from "../../ui/carousel.tsx";
 import {Product} from "../../../types/product.type.ts";
+import {IMAGE_NOT_FIND} from "@/lib/utils.ts";
 
 const ProductCart = ({ product }: { product: Product }) => {
     const [selectedProduct, setSelectedProduct] = useState<ProductVariant>(
@@ -37,7 +38,7 @@ const ProductCart = ({ product }: { product: Product }) => {
                             className="w-full max-w-sm flex flex-1 box-carousel_box ">
 
                             <div className={'Button-box  Button-box-left mr-1.5'}>
-                                <CarouselPrevious style={{position: "relative!important"}}/>
+                                <CarouselPrevious />
                             </div>
 
                             <CarouselContent className=" ml-0 w-full flex-1 box-content_product flex-1"
@@ -51,10 +52,11 @@ const ProductCart = ({ product }: { product: Product }) => {
                                             onClick={() => setSelectedProduct(productVariant)}
                                         >
                                             <img
-                                                src={`http://localhost:9003/picture/${productVariant.images[0].replace(
-                                                    /\.webp$/,
-                                                    "_s.webp"
-                                                )}` || ""}
+                                                src={
+                                                    selectedProduct.images.length !== 0
+                                                        ? `http://localhost:9003/picture/${selectedProduct.images[0]}`
+                                                        : IMAGE_NOT_FIND
+                                                }
                                                 alt={product.name}
                                                 className="w-full h-full object-cover"
                                             />
@@ -66,7 +68,7 @@ const ProductCart = ({ product }: { product: Product }) => {
 
                             <div className={'Button-box Button-box-right ml-1.5'}>
 
-                                <CarouselNext style={{position: "relative!important"}}/>
+                                <CarouselNext />
                             </div>
                         </Carousel>
                         :
@@ -83,10 +85,11 @@ const ProductCart = ({ product }: { product: Product }) => {
                                             onClick={() => setSelectedProduct(productVariant)}
                                         >
                                             <img
-                                                src={`http://localhost:9003/picture/${productVariant.images[0].replace(
-                                                    /\.webp$/,
-                                                    "_s.webp"
-                                                )}` || ""}
+                                                src={
+                                                    selectedProduct.images.length !== 0
+                                                        ? `http://localhost:9003/picture/${selectedProduct.images[0]}`
+                                                        : IMAGE_NOT_FIND
+                                                }
                                                 alt={product.name}
                                                 className="w-full h-full object-cover"
                                             />

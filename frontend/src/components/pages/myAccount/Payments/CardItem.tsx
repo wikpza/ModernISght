@@ -1,21 +1,26 @@
 import {useDeleteCard} from "../../../../api/CardAPI.tsx";
+import {useEffect} from "react";
+import {QueryObserverResult, RefetchOptions, RefetchQueryFilters} from "react-query";
+import {getCards} from "@/types/Card.type.ts";
 
 type Props = {
     cvv: string;
     cardNumber: string;
     expiryDate: string;
     cardId:string
+    refetch: <TPageData>(options?: ((RefetchOptions & RefetchQueryFilters<TPageData>) | undefined)) => Promise<QueryObserverResult<getCards, Error>>
 };
 
-const CardItem = ({ cvv, cardNumber, expiryDate, cardId }: Props) => {
+const CardItem = ({ cvv, cardNumber, expiryDate, cardId, refetch }: Props) => {
     // Форматируем номер карты для отображения (маскируем)
     const formattedCardNumber = cardNumber.replace(/(\d{4})(?=\d)/g, "$1 ");
 
     const {deleteCard, isSuccess} = useDeleteCard()
-     // Разделяем дату на месяц и го
     const [month, year] = expiryDate.split("/");
 
-    if(isSuccess) window.location.reload()
+    useEffect(() => {
+        refetch()
+    }, [isSuccess]);
     return (
         <div className="w-full max-w-[400px] min-w-[300px] rounded-lg shadow-lg overflow-hidden border-gray-400 border ">
             {/* Карточка Header */}

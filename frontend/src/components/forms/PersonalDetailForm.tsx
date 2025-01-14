@@ -1,5 +1,4 @@
 import {z} from "zod";
-import {User, UserInfo} from "../../types.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import CustomInput from "../ui/CustomInput.tsx";
@@ -7,6 +6,8 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "..
 import {Input} from "../ui/input.tsx";
 import {Button} from "../ui/button.tsx";
 import CustomButton from "../ui/CustomButton.tsx";
+import {User, UserInfo} from "@/types/user.type.ts";
+import {handlerPhoneNumberSubmit} from "@/lib/utils.ts";
 
 
 const formSchema = z.object({
@@ -34,55 +35,31 @@ type Props = {
 }
 
 
+
 const PersonalDetailForm = ({onSave, setOpen, userInfo }:Props) => {
 
-    const form = useForm<PersonalDetailFormData>({
-        resolver:zodResolver(formSchema),
-        defaultValues:{
-            lastName: userInfo?.lastName || "",
-            firstName:userInfo?.firstName || "",
-            phoneNumber: userInfo?.phoneNumber || "",
-            updateValues:['lastName', 'firstName', "phoneNumber"]
-        }
-    })
 
-    const onSubmit = (formDataJson: PersonalDetailFormData) => {
-        onSave(formDataJson);
-        setOpen(false)
+
+    const form = useForm<PersonalDetailFormData>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            lastName: userInfo?.lastName || "",
+            firstName: userInfo?.firstName || "",
+            phoneNumber: userInfo?.phoneNumber || "",
+            updateValues: ['lastName', 'firstName', 'phoneNumber'],
+        }
+    });
+
+    const onSubmit = async (formDataJson: PersonalDetailFormData) => {
+        try {
+            await onSave(formDataJson);  // Ожидаем выполнения onSave
+            setOpen(false);  // Закрытие формы после успешного сохранения
+        } catch (error) {
+            console.error("Error during save:", error);
+        }
     };
 
-    const handlerPhoneNumberSubmit=(value)=> {
-        const mask = "+996(___)__-__-__" // Новая маска
 
-        if (value.length === 1 && /^\d+$/.test(value.slice(0))) {
-            form.setValue('phoneNumber', mask.replace("_", value), {shouldValidate: true})
-            return
-        }
-
-        // Изменяем длину проверки на 18
-        if(value.length === 18 && /^\d+$/.test(value.slice(-1))){
-            form.setValue('phoneNumber', value.replace("_",  value.slice(-1)).slice(0, -1), {shouldValidate: true})
-            return
-        }
-
-        if( value.length === 1 && !/^\d+$/.test(value.slice(0)) ){
-            return
-        }
-
-        // Изменяем длину проверки на 18
-        if( value.length === 18 && !/^\d+$/.test(value.slice(-1)) ){
-            return
-        }
-
-        let numberArray = value.split('').slice(4,).filter((number)=>/^\d+$/.test(number))
-        if(numberArray.length === 0){
-            return
-        }else if(numberArray.length < 9){
-            numberArray = numberArray.slice(0,-1)
-        }
-        const  newNumber = mask.replace(/_/g, () => numberArray.length ? numberArray.shift() : "_");
-        form.setValue('phoneNumber', newNumber, {shouldValidate: true})
-    }
 
     return (
         <Form {...form}>
@@ -99,7 +76,7 @@ const PersonalDetailForm = ({onSave, setOpen, userInfo }:Props) => {
                                 {...field}
                                 className={'CustomInput border-gray-400 h-fit border'}
                                 style={{ paddingTop: "34px", paddingBottom: "8px" }}
-                                onChange={(e)=>handlerPhoneNumberSubmit(e.target.value)}
+                                onChange={(e)=>handlerPhoneNumberSubmit(e.target.value, form)}
                             />
                         </FormControl>
                         <FormMessage/>

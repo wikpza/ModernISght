@@ -88,6 +88,8 @@ const ProductCart = ({ product, brands, collections }:
 
     }
 
+    console.log(product.productVariant)
+
     return (
         <div className= {`rounded max-w-[400px] h-fit flex-row m-2 space-y-2 ${product.productVariant.length === 0? "h-fit":"h-fit"}`} >
 
@@ -116,7 +118,7 @@ const ProductCart = ({ product, brands, collections }:
                                     className="w-full max-w-sm flex flex-1 box-carousel_box ">
 
                                     <div className={'Button-box  Button-box-left mr-1.5'}>
-                                        <CarouselPrevious style={{position: "relative!important"}}/>
+                                        <CarouselPrevious />
                                     </div>
 
                                     <CarouselContent className=" ml-0 w-full flex-1 box-content_product "
@@ -132,10 +134,10 @@ const ProductCart = ({ product, brands, collections }:
                                                     onClick={() => setSelectedProduct(productVariant)}
                                                 >
                                                     <img
-                                                        src={`http://localhost:9003/picture/${productVariant.images[0].replace(
+                                                        src={productVariant.images.length !==0? `http://localhost:9003/picture/${productVariant.images[0].replace(
                                                             /\.webp$/,
                                                             "_s.webp"
-                                                        )}` || ""}
+                                                        )}` : "https://www.mobismea.com/upload/iblock/2a0/2f5hleoupzrnz9o3b8elnbv82hxfh4ld/No%20Product%20Image%20Available.png"}
                                                         alt={product.name}
                                                         className="w-full h-full object-cover"
                                                     />
@@ -150,7 +152,7 @@ const ProductCart = ({ product, brands, collections }:
 
                                     <div className={'Button-box Button-box-right ml-1.5 '}>
 
-                                        <CarouselNext style={{position: "relative!important"}}/>
+                                        <CarouselNext/>
                                     </div>
                                 </Carousel>
                                 :
@@ -167,7 +169,7 @@ const ProductCart = ({ product, brands, collections }:
                                                     onClick={() => setSelectedProduct(productVariant)}
                                                 >
                                                     <img
-                                                        src={`http://localhost:9003/picture/${productVariant.images[0].replace(
+                                                        src={`http://localhost:9003/picture/${(productVariant.images[0]? productVariant.images[0]:"").replace(
                                                             /\.webp$/,
                                                             "_s.webp"
                                                         )}` || ""}

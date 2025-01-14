@@ -3,14 +3,16 @@ import {Card, CardContent, CardHeader} from "../../../ui/card.tsx";
 import {Skeleton} from "../../../ui/skeleton.tsx";
 import {Separator} from "../../../ui/separator.tsx";
 import CardBankItem from "./CardBankItem.tsx";
+import {QueryObserverResult, RefetchOptions, RefetchQueryFilters} from "react-query";
 
 
 type Props = {
     cards: getCards | undefined,
-    isLoading:boolean
+    isLoading:boolean,
+    refetch: <TPageData>(options?: ((RefetchOptions & RefetchQueryFilters<TPageData>) | undefined)) => Promise<QueryObserverResult<getCards, Error>>
 }
 
-const CardList = ({cards, isLoading}:Props) => {
+const CardList = ({cards, isLoading, refetch}:Props) => {
     if(isLoading ){
         return (
             <div className="flex flex-col space-y-4 w-full">
@@ -53,8 +55,8 @@ const CardList = ({cards, isLoading}:Props) => {
     }else{
         if( cards && cards?.cards.length !== 0){
             return (
-                <div className={'flex-1 w-full flex-wrap gap-2 '}>
-                    {cards?.cards.map((card, index) => <CardBankItem   key = {index} cardNumber={card.number} cvv={card.cvv} expiryDate={card.expiryDate} cardId={card._id}/>)}
+                <div className={'w-full flex flex-wrap gap-2'}>
+                    {cards?.cards.map((card, index) => <CardBankItem   key = {index} cardNumber={card.number} cvv={card.cvv} expiryDate={card.expiryDate} cardId={card._id} refetch={refetch}/>)}
                 </div>
             )
         }

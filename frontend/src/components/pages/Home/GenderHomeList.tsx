@@ -37,7 +37,8 @@ const GenderHomeList = () => {
                     className="w-full max-w-sm flex flex-1 box-carousel_box ">
 
                     <div className={'Button-box  Button-box-left mr-1.5 HomeProductList'}>
-                        <CarouselPrevious style={{position: "relative!important"}}/>
+                        <CarouselPrevious/>
+                        {/*<CarouselPrevious style={{position: "relative!important"}}/>*/}
                     </div>
 
                     <CarouselContent className=" ml-0 w-full flex-1 box-content_product gap-5 "
@@ -46,7 +47,7 @@ const GenderHomeList = () => {
 
 
                         {products && products.map((product, index)=>(
-                            <CarouselItem className={'max-w-[400px]'}>
+                            <CarouselItem className={'max-w-[400px]'} key = {index}>
                                 <ProductViewCart product={product} key={index}/>
                             </CarouselItem>
                         ))}
@@ -55,7 +56,9 @@ const GenderHomeList = () => {
                     </CarouselContent>
                     <div className={'Button-box Button-box-right ml-1.5 HomeProductList'}>
 
-                        <CarouselNext style={{position: "relative!important"}}/>
+                        {/*<CarouselNext style={{position: "relative!important"}}/>*/}
+                        <CarouselNext />
+
                     </div>
                 </Carousel>
 

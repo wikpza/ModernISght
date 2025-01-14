@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {GetProductUser, GetProductVariant} from "../../../../types/product.type.ts";
 import {useEffect, useState} from "react";
 import {Carousel, CarouselNext, CarouselPrevious, CarouselContent, CarouselItem,} from "../../../ui/carousel.tsx";
-import {calculateDiscountedPrice, isDiscountActive} from "../../../../lib/utils.ts";
+import {calculateDiscountedPrice, IMAGE_NOT_FIND, isDiscountActive} from "../../../../lib/utils.ts";
 
 
 const ProductViewCart = ({ product }:
@@ -39,6 +39,7 @@ const ProductViewCart = ({ product }:
         }
     };
 
+    console.log(product.productVariant)
 
     return (
         <div className= {`rounded  h-fit flex-row m-2 space-y-2 ${product.productVariant.length === 0? "h-fit":"h-fit"}`} >
@@ -68,7 +69,7 @@ const ProductViewCart = ({ product }:
                                     className="w-full max-w-sm flex flex-1 box-carousel_box ">
 
                                     <div className={'Button-box  Button-box-left mr-1.5'}>
-                                        <CarouselPrevious style={{position: "relative!important"}}/>
+                                        <CarouselPrevious />
                                     </div>
 
                                     <CarouselContent className=" ml-0 w-full flex-1 box-content_product "
@@ -84,10 +85,11 @@ const ProductViewCart = ({ product }:
                                                     onClick={() => setSelectedProduct(productVariant)}
                                                 >
                                                     <img
-                                                        src={`http://localhost:9003/picture/${productVariant.images[0].replace(
+                                                        src={productVariant.images.length!==0? `http://localhost:9003/picture/${productVariant.images[0].replace(
                                                             /\.webp$/,
                                                             "_s.webp"
-                                                        )}` || ""}
+                                                        )}`:"https://www.mobismea.com/upload/iblock/2a0/2f5hleoupzrnz9o3b8elnbv82hxfh4ld/No%20Product%20Image%20Available.png"
+                                                    }
                                                         alt={product.name}
                                                         className="w-full h-full object-cover"
                                                     />
@@ -102,7 +104,7 @@ const ProductViewCart = ({ product }:
 
                                     <div className={'Button-box Button-box-right ml-1.5 '}>
 
-                                        <CarouselNext style={{position: "relative!important"}}/>
+                                        <CarouselNext />
                                     </div>
                                 </Carousel>
                                 :
@@ -119,10 +121,11 @@ const ProductViewCart = ({ product }:
                                                     onClick={() => setSelectedProduct(productVariant)}
                                                 >
                                                     <img
-                                                        src={`http://localhost:9003/picture/${productVariant.images[0].replace(
-                                                            /\.webp$/,
-                                                            "_s.webp"
-                                                        )}` || ""}
+                                                        src={
+                                                            productVariant.images.length !== 0
+                                                                ? `http://localhost:9003/picture/${productVariant.images[0]}`
+                                                                : IMAGE_NOT_FIND
+                                                        }
                                                         alt={product.name}
                                                         className="w-full h-full object-cover"
                                                     />

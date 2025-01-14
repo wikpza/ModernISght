@@ -29,6 +29,9 @@ import teesPictureWoman
 import homeHoodiesPicture from '../components/pictures/black-white-hoodies-white-background_1077884-17384.jpg'
 import homeShoesPicture from '../components/pictures/NB-890_Comp_X1_Image4.jpg'
 import jacketsShoesPicture from '../components/pictures/NB-890_Comp_X6_Image1.jpg'
+import {UseFormReturn} from "react-hook-form";
+import {PersonalDetailsFormData} from "@/components/forms/PersonalDetailForm.tsx";
+
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -38,6 +41,7 @@ export const roundToTwoDecimalPlaces = (value: number): number =>{
   return Math.floor(value * 100) / 100;
 }
 
+export const IMAGE_NOT_FIND = "https://www.mobismea.com/upload/iblock/2a0/2f5hleoupzrnz9o3b8elnbv82hxfh4ld/No%20Product%20Image%20Available.png"
 export const navList = [
   {
     name:"Men",
@@ -279,4 +283,107 @@ export const paymentStatus = [
 export function capitalizeFirstLetter(str:string) {
   if (!str) return str; // Если строка пуста, возвращаем её как есть
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
+export const mask = "+996(___)__-__-__" // Новая маска
+
+export const handlerPhoneNumberSubmit=(value:string, form:UseFormReturn<PersonalDetailsFormData>)=> {
+
+  if (value.length === 1 && /^\d+$/.test(value.slice(0))) {
+    form.setValue('phoneNumber', mask.replace("_", value), {shouldValidate: true})
+    return
+  }
+
+  // Изменяем длину проверки на 18
+  if(value.length === 18 && /^\d+$/.test(value.slice(-1))){
+    form.setValue('phoneNumber', value.replace("_",  value.slice(-1)).slice(0, -1), {shouldValidate: true})
+    return
+  }
+
+  if( value.length === 1 && !/^\d+$/.test(value.slice(0)) ){
+    return
+  }
+
+  // Изменяем длину проверки на 18
+  if( value.length === 18 && !/^\d+$/.test(value.slice(-1)) ){
+    return
+  }
+
+  let numberArray = value.split('').slice(4,).filter((number)=>/^\d+$/.test(number))
+  if(numberArray.length === 0){
+    return
+  }else if(numberArray.length < 9){
+    numberArray = numberArray.slice(0,-1)
+  }
+  const newNumber = mask.replace(/_/g, () => numberArray.length ? numberArray.shift() || "" : "_");
+  form.setValue('phoneNumber', newNumber, {shouldValidate: true})
+}
+
+type ErrorDetails = {
+  [key: string]: string[][]
+}
+export type FormErrors = {
+  message:string,
+  details: ErrorDetails
+
+};
+
+
+// export function isFormErrors(obj: unknown): obj is FormErrors {
+//   return (
+//       typeof obj === 'object' &&
+//       obj !== null &&
+//       'message' in obj &&
+//       typeof (obj as { message: unknown }).message === 'string' &&
+//       'details' in obj &&
+//       typeof (obj as { details: unknown }).details === 'object' &&
+//       obj.details !== null &&
+//       Object.keys((obj as { details: { [key: string]: string[] } }).details).every((key) => {
+//         const value = (obj as { details: { [key: string]: string[] } }).details[key];
+//         return Array.isArray(value) && value.every(item => typeof item === 'string');
+//       })
+//   );
+// }
+
+export function isFormErrors(obj: unknown): obj is FormErrors {
+  return (
+      typeof obj === 'object' &&
+      obj !== null &&
+      'message' in obj &&
+      typeof (obj as { message: unknown }).message === 'string' &&
+      'details' in obj &&
+      typeof (obj as { details: unknown }).details === 'object' &&
+      obj.details !== null &&
+      Object.keys((obj as { details: { [key: string]: string[] } }).details).every((key) => {
+        const value = (obj as { details: { [key: string]: string[] } }).details[key];
+        return Array.isArray(value) && value.every(item => typeof item === 'string');
+      })
+  );
+}
+
+export const handleServerError = (error: { status: number;}) => {
+  switch (error.status) {
+    case 500:
+      return "Something went wrong on our side. Please try again later.";
+    case 501:
+      return "This functionality is not yet implemented.";
+    case 502:
+      return "Temporary network issue. Please try again later.";
+    case 503:
+      return "The server is currently unavailable. Please check back soon.";
+    case 504:
+      return "The server is taking too long to respond. Please try again.";
+    default:
+      return "An unknown error occurred. Please contact support.";
+  }
+};
+
+export function isValidJSON(str: string): boolean {
+  try {
+    JSON.parse(str);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }

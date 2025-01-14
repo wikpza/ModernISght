@@ -34,7 +34,7 @@ const CategoryPage = () => {
                     </div>
 
 
-                    <ItemList values={categories} isLoading={isLoading}>
+                    <ItemList values={categories} isLoading={isLoading} name={"Category"}>
 
                         {categories && categories.map((value, index) =>
 

@@ -82,7 +82,7 @@ const ProductView = () => {
 
                 <div className={"flex w-fit"}>
                     <HiMiniArrowsUpDown className={`items-center h-full  border w-fit rounded text-sm px-2 font-light mr-3 ${params.sortType === 1?" border-gray-400 text-gray-600":"  border-gray-600 text-gray-800 "}`} onClick={()=>setParams({...params, sortType: params.sortType === 1? -1:1})}/>
-                    <ComboBoxProductView options={SortParams} onChange={(value)=> setParams({...params, sortBy:value.value})} label = {params.sortBy === "rating"?"Popularity":"Price"} />
+                    <ComboBoxProductView options={SortParams} onChange={(value:any)=> setParams({...params, sortBy:value.value})} label = {params.sortBy === "rating"?"Popularity":"Price"} />
                 </div>
 
 

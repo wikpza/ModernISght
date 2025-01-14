@@ -5,8 +5,14 @@ import {DialogClose, DialogHeader, DialogTitle} from "../../../ui/dialog.tsx";
 import {AiOutlineClose} from "react-icons/ai";
 import {Separator} from "@radix-ui/react-dropdown-menu";
 import CreateCardForm from "./CreateCardForm.tsx";
+import {QueryObserverResult, RefetchOptions, RefetchQueryFilters} from "react-query";
+import {getCards} from "@/types/Card.type.ts";
 
-const CreatePaymentsDialog = () => {
+type Props = {
+    refetch: <TPageData>(options?: ((RefetchOptions & RefetchQueryFilters<TPageData>) | undefined)) => Promise<QueryObserverResult<getCards, Error>>
+
+}
+const CreatePaymentsDialog = ({refetch}:Props) => {
     const [open, setOpen] = React.useState(false);
 
 
@@ -27,7 +33,7 @@ const CreatePaymentsDialog = () => {
 
                             <Separator className={'bg-slate-400 w-full h-[1px] '}/>
 
-                            <CreateCardForm/>
+                            <CreateCardForm refetch={refetch}/>
                         </DialogHeader>
                     </Dialog.Content>
                 </Dialog.Overlay>

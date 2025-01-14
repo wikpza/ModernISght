@@ -1,14 +1,14 @@
-import React, { createContext, useContext, useState } from 'react';
+import   { createContext, useContext, useState } from 'react';
 import LoadingOverlayWrapper from "react-loading-overlay-ts";
 import { Mosaic } from "react-loading-indicators";
 
 const LoadingContext = createContext({
     isLoading: false,
     startLoading: () => {},
-    stopLoading: () => {}
+    stopLoading: () => {},
 });
 
-export const LoadingOverlay = ({ children }) => {
+export const LoadingOverlay = ({ children }:{children:React.ReactNode}) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const startLoading = () => {

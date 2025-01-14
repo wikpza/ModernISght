@@ -18,6 +18,7 @@ export default class UserStore {
 
     setIsAuth(bool: boolean) {
         runInAction(() => { // оборачиваем в runInAction
+
             this._isAuth = bool;
         });
     }
@@ -32,6 +33,7 @@ export default class UserStore {
 
     setUser(user: User) {
         runInAction(() => { // оборачиваем в runInAction
+
             this._user = user;
         });
     }

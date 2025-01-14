@@ -33,7 +33,7 @@ const ColorPage = () => {
 
                     </div>
 
-                    <ItemList values={colors} isLoading={isLoading}>
+                    <ItemList values={colors} isLoading={isLoading} name = {"Color"}>
                         {colors && colors.map((value, index) =>
                             <ColorCart value={value} key = {index}/>)}
                     </ItemList>

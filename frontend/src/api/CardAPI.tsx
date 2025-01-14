@@ -21,13 +21,13 @@ export const useGetCards = () => {
         return response.json();
     };
 
-    const { data: cards, isLoading, error } = useQuery<getCards, Error>(
+    const { data: cards, isLoading, error, refetch } = useQuery<getCards, Error>(
         ['fetchCards'],  // используем id как часть ключа
         getCardsRequest,      // передаем саму функцию запроса
         { retry: 1 }
     );
 
-    return { cards, isLoading, error };
+    return { cards, isLoading, error, refetch };
 };
 
 export const useCreateCard = ()=>{
@@ -57,7 +57,7 @@ export const useCreateCard = ()=>{
         mutateAsync:createCard,
         isLoading,
         error,
-        isSuccess
+        isSuccess,
     } = useMutation("CreateCard", createCardRequest, {
         retry:0,
         onSuccess: () => {
@@ -97,7 +97,10 @@ export const useDeleteCard = ()=>{
     }
 
     const {mutate:deleteCard, isLoading, isSuccess, error} = useMutation(DeleteCardRequest, {
-        retry:0
+        retry:0,
+        onSuccess: () => {
+            toast.success('Card successfully has been deleted.');
+        },
     })
 
     return {deleteCard, isLoading, error, isSuccess}

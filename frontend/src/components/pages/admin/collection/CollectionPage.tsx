@@ -31,7 +31,7 @@ const CollectionPage = () => {
 
                     </div>
 
-                    <ItemList values={collections} isLoading={isLoading}>
+                    <ItemList values={collections} isLoading={isLoading} name={"Collection"}>
                         {collections && collections.map((value, index) =>
                             <CollectionCart value={value} key = {index}/>)}
                     </ItemList>

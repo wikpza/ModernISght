@@ -17,7 +17,8 @@ type Props = {
 const User = observer( ({ type='login' }: Props) => {
     const [currentType, setCurrentType] = useState(type);
     const {createUser, isLoading:createUserLoading, isSuccess:isCreateUserSuccess, userSession} = useCreateMyUser()
-    const {loginUser, isLoading:loginUserIsLoading, isSuccess:isLoginUserSuccess, userData} = useLoginMyUser()
+    const {loginUser, isLoading:loginUserIsLoading, userData} = useLoginMyUser()
+
 
     const context = useContext(Context);
 
@@ -29,24 +30,30 @@ const User = observer( ({ type='login' }: Props) => {
 
     const navigate = useNavigate()
 
-    if(userSession) {
+    console.log(userSession)
 
-        return <VerifyEmail email={userSession?.email || "example@example.com"}></VerifyEmail>
+    if(userSession && userSession.status === 201 && userSession.user && userSession.user.email) {
+        return <VerifyEmail email={userSession.user.email || "example@example.com"}></VerifyEmail>
     }
+
+
+
 
     if (userData) {
         runInAction(() => {
-            user.setUser({
-                _id: userData._id,
-                email: userData.email,
-                firstName: userData.firstName,
-                lastName: userData.lastName,
-                role: userData.role,
-            });
-            user.setIsAuth(true);
-        });
+            if(userData.user) {
+                user.setUser({
+                    _id: userData.user._id,
+                    email: userData.user.email,
+                    firstName: userData.user.firstName,
+                    lastName: userData.user.lastName,
+                    role: userData.user.role,
+                });
+                user.setIsAuth(true);
 
-        navigate('/');
+                navigate('/');
+            }
+        });
     }
 
 
@@ -74,8 +81,8 @@ const User = observer( ({ type='login' }: Props) => {
                         Create account
                     </button>
                 </div>
-                {currentType === 'login' && <LoginForms onSave={loginUser} changeType={()=>setCurrentType('registration')} isLoading={loginUserIsLoading} isSuccess={isLoginUserSuccess}/>}
-                {currentType === 'registration' && <RegistrationForms  onSave={createUser} isLoading={createUserLoading} isSuccess={isCreateUserSuccess} changeType={()=>setCurrentType('login')}/>}
+                {currentType === 'login' && <LoginForms onSave={loginUser} changeType={()=>setCurrentType('registration')} isLoading={loginUserIsLoading} response={userData?.response} status={userData?.status}/>}
+                {currentType === 'registration' && <RegistrationForms  onSave={createUser} isLoading={createUserLoading} isSuccess={isCreateUserSuccess} changeType={()=>setCurrentType('login')} status={userSession?.status} response={userSession?.response}/>}
             </div>
 
         </section>

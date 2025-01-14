@@ -2,7 +2,7 @@ import ProfilePanel from "../elements/profileDetails/ProfilePanel.tsx";
 import {ScrollArea, ScrollBar} from "../ui/scroll-area.tsx";
 import {profileNavigateItems} from "../../lib/utils.ts";
 import ProfileNavigate from "../elements/profileDetails/ProfileNavigate.tsx";
-import React from "react";
+
 import {useLocation} from "react-router-dom";
 type Props = {
     children: React.ReactNode,

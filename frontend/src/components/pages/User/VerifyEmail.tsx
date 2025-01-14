@@ -16,7 +16,7 @@ const VerifyEmail = ({email="example@examplegmail.com"}:Props) => {
                 <CardTitle className={'text-center text-2xl'}>Verify Your Email</CardTitle>
             </CardHeader>
             <CardContent>
-                <p className={'text-center text-base'}>You Have Entered <span className={'font-bold'}>{email}</span> As The Email Address For Your Account Me Need To Verify Your Email Id</p>
+                <p className={'text-center text-base'}>You have entered <span className={'font-bold'}>{email}</span>  as the email address for your account. We need to verify your email address to complete the setup of your account.</p>
             </CardContent>
             <CardFooter className={'flex justify-center' }>
                 <Button className={' bg-blue-500 p-5'} onClick={()=>navigate('/')}>

@@ -8,6 +8,7 @@ import User  from "./components/pages/User/User.tsx";
 import {toast} from "sonner";
 import {observer} from "mobx-react-lite";
 import {runInAction} from "mobx";
+import LoadingOverlay from "@/components/ui/LoadingOveraly.tsx";
 
 
 let userData:{
@@ -42,7 +43,7 @@ const AppRoutes =  observer( () => {
         throw new Error('Context is not available');
     }
 
-    const {user} = context
+    const {user, overlay} = context
 
     if (userData) {
         runInAction(() => {
@@ -57,7 +58,9 @@ const AppRoutes =  observer( () => {
         });
     }
 
+
     return (
+        <LoadingOverlay isLoading={overlay.isLoading} className={`!w-[100vw] !h-[100vh] ${overlay.isLoading && "!fixed"}`} size={(15 / 100) * window.innerWidth}>
             <Routes>
                 <Route path = {'*'} element={<Navigate  to={'/'}/>}/>
                 <Route path = {'/user/login'} element={<Layout><User type={"login"}/></Layout>}/>
@@ -76,6 +79,7 @@ const AppRoutes =  observer( () => {
                 ))}
 
             </Routes>
+        </LoadingOverlay>
     );
 })
 export default AppRoutes;

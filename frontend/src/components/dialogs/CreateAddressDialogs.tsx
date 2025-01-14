@@ -11,16 +11,24 @@ import AddressForm from "../forms/AddressForm.tsx";
 
 import { AiOutlineClose } from "react-icons/ai";
 import {useCreateUserAddresses} from "../../api/UserAddressesApi.tsx";
-import React from "react";
+import React, {useEffect} from "react";
+import {QueryObserverResult, RefetchOptions, RefetchQueryFilters} from "react-query";
+import {Address} from "@/types.ts";
 
 
-
-export default () => {
+type Props = {
+    refetch: <TPageData>(options?: ((RefetchOptions & RefetchQueryFilters<TPageData>) | undefined)) => Promise<QueryObserverResult<Address[], unknown>>
+}
+export default ({refetch}:Props) => {
     const [open, setOpen] = React.useState(false);
 
     const {createAddresses, isLoading, isSuccess} = useCreateUserAddresses()
 
-    if(isSuccess)  window.location.reload()
+
+
+    useEffect(() => {
+        refetch()
+    }, [isSuccess]);
 
      return (
         <Dialog.Root open={open} onOpenChange={setOpen}>

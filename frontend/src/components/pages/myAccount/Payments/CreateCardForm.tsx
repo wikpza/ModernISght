@@ -1,9 +1,15 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../ui/card.tsx";
-import { CreateCard } from "../../../../types/Card.type.ts";
-import { useState } from "react";
+import {CreateCard, getCards} from "../../../../types/Card.type.ts";
+import {useEffect, useState} from "react";
 import {useCreateCard} from "../../../../api/CardAPI.tsx";
+import {QueryObserverResult, RefetchOptions, RefetchQueryFilters} from "react-query";
 
-const CreateCardForm = () => {
+
+type Props = {
+    refetch: <TPageData>(options?: ((RefetchOptions & RefetchQueryFilters<TPageData>) | undefined)) => Promise<QueryObserverResult<getCards, Error>>
+
+}
+const CreateCardForm = ({refetch}:Props) => {
 
     const {createCard, isSuccess} = useCreateCard()
 
@@ -72,7 +78,10 @@ const CreateCardForm = () => {
         }
     };
 
-    if(isSuccess) window.location.reload()
+    useEffect(() => {
+        refetch()
+    }, [isSuccess]);
+
 
 
 

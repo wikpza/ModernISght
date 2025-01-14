@@ -7,7 +7,7 @@ import AccountLayout from "../../layout/AccountLayout.tsx";
 
 
 const Address = () => {
-    const {addresses, isLoading, error} = useGetUserAddresses()
+    const {addresses, isLoading, error, refetch} = useGetUserAddresses()
     return (
         <AccountLayout className={'max-w-[500px] w-full min-w-[300px]'} >
                 {error && !isLoading ?
@@ -25,9 +25,9 @@ const Address = () => {
                     <section className={'flex-1 w-full'}>
                         <div className={'flex flex-row justify-between mb-2'}>
                             <h3 className={'text-2xl'}>Addresses</h3>
-                            <div><AddressDialogs/></div>
+                            <div><AddressDialogs refetch={refetch}/></div>
                         </div>
-                        <AddressesList addresses={addresses} isLoading={isLoading}/>
+                        <AddressesList addresses={addresses} isLoading={isLoading} refetch={refetch}/>
                     </section>
                 }
         </AccountLayout>

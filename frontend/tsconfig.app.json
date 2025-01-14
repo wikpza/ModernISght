@@ -22,9 +22,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-  "compilerOptions": {
-    "jsx": "react"
-  },
+
     "allowSyntheticDefaultImports": true
   },
   "include": ["src"]

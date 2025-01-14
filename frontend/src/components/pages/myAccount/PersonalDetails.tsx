@@ -4,10 +4,11 @@ import  {useContext} from "react";
 import {Context} from "../../../main.tsx";
 import ChangePersonalDetails from "../../dialogs/changePersonalDetails.tsx";
 import EditPasswordDialog from "../../dialogs/EditPasswordDialog.tsx";
+import {observer} from "mobx-react-lite";
 
 
 
-const PersonalDetails = () => {
+const PersonalDetails = observer(() => {
     const {user} = useContext(Context)
     return (
         <AccountLayout className={'max-w-[500px] w-full min-w-[300px] space-y-3'}>
@@ -24,6 +25,6 @@ const PersonalDetails = () => {
 
         </AccountLayout>
     );
-};
+})
 
 export default PersonalDetails;
