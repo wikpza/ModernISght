@@ -55,3 +55,44 @@ The system consists of several microservices:
 ![Classes](./images/classes.png)
 
 
+## 🖼️ Interface Screenshots
+
+### 🏠 1. Home Page
+A general overview of the storefront, including product listings and navigation.
+
+![Home Page](./images/main.png)
+
+---
+
+### 👕 2. Product Details Page
+Detailed view of a selected product, including images, description, size, and price.
+
+![Product Page](./images/product.png)
+
+---
+
+### 🛒 3. Checkout Page
+Order placement page where users select delivery address and payment method.
+
+![Checkout Page](./images/order.png)
+
+---
+
+### 📍 4. Address List Page
+User dashboard section for managing delivery addresses.
+
+![Addresses Page](./images/addresses.png)
+
+---
+
+### ⚙️ 5. Admin Product Management Page
+Admin interface for editing, adding, and managing product data.
+
+![Admin Product Page](./images/adminProduct.png)
+
+---
+
+📂 _All images should be placed in the `/assets` folder of the project:_
+
+
+
