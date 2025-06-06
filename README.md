@@ -47,9 +47,16 @@ The system consists of several microservices:
 ![Use Case](./images/usecase.png)
 
 - 🔄 **DFD (Data Flow Diagram)** – Data flow between system components
-- 🔷 **IDEF0 Diagram** – Business process decomposition
-- 🧭 **Activity Diagram** – User behavior and flow logic
+![DFD all levels](./images/dfd1png)
+![A-0](./images/dfd2.png)
+![A-0](./images/dfd3.png)
+![A-1](./images/dfd4.png)
+![A-2](./images/dfd5.png)
+![A-3](./images/dfd6.png)
+![A-4](./images/dfd7.png)
+![A-5](./images/dfd8.png)
+
 - 🏗 **Class Diagram** – Object structure of the system
-- 🗂 **Database Schema** – MongoDB collections and relations
+![Classes](./images/classes.png)
 
 
