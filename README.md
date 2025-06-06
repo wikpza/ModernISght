@@ -47,7 +47,7 @@ The system consists of several microservices:
 ![Use Case](./images/usecase.png)
 
 - 🔄 **DFD (Data Flow Diagram)** – Data flow between system components
-![DFD all levels](./images/dfd1png)
+![DFD all levels](./images/dfd1.png)
 ![A-0](./images/dfd2.png)
 ![A-0](./images/dfd3.png)
 ![A-1](./images/dfd4.png)
