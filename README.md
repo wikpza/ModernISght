@@ -1,38 +1,55 @@
-🛍️ Modern Sight — Online Clothing Store
+# 🛍️ Modern Sight — Online Clothing Store
 
-📌 Description
-Modern Sight is a web application for an online clothing store, developed using a microservices architecture.
+## 📌 Description
 
-🧱 Architecture
-The project is divided into separate microservices:
+**Modern Sight** is a modern and scalable web application for an online clothing store, built with a **microservices architecture**.  
+Each service is responsible for a specific business domain, improving scalability, maintainability, and performance.
 
-account_service — handles user registration, authentication, address and card management.
-product_service — manages products, categories, brands, sizes, and inventory.
-storage_service — responsible for storing and serving media files (product images, etc.).
-Microservices communicate via Apache Kafka in an event-driven architecture. All client requests go through a central API Gateway.
+## 🧱 Architecture
 
-⚙️ Technologies Used
+The system consists of several microservices:
 
-Layer	Technologies
-Frontend	TypeScript, React, Tailwind CSS
-Backend	Node.js, TypeScript, Express
-Database	MongoDB (via Mongoose)
-Service Communication	Apache Kafka
-Developer Tools	Git, Docker, Jest, Draw.io, MS Excel
-🧩 Main Functional Modules
+- 🔐 **account_service** — User registration, authentication, profile, addresses, and payment methods.
+- 🛒 **product_service** — Product catalog, categories, collections, inventory, and orders.
+- 🖼️ **storage_service** — Media file (e.g., product images) storage and management.
+- 🚪 **API Gateway** — Unified entry point for all services, routing requests and handling authentication.
+- 📡 **Kafka** — Message broker for asynchronous, event-driven communication between services.
 
-User registration and login with email verification
-User dashboard with profile, address, and payment card management
-Product catalog with filtering by category, brand, collection, and gender
-Admin panel to manage products, brands, collections, sizes, colors, and inventory
-Shopping cart and order processing
-Product image storage and delivery
-Order history and inventory management
-📘 Diagrams
+## ⚙️ Technologies Used
 
-You can include these diagrams to better represent the system's structure:
+| Layer              | Technology Stack                                  |
+|--------------------|---------------------------------------------------|
+| **Frontend**        | React, TypeScript, Tailwind CSS                  |
+| **Backend**         | Node.js, Express, TypeScript                     |
+| **Database**        | MongoDB with Mongoose ODM                        |
+| **Inter-Service Communication** | Apache Kafka                         |
+| **Dev Tools**       | Docker, Git, Jest, Draw.io, MS Excel             |
 
-📌 Use Case Diagram — visualizes user and admin interactions with the system.
-🔄 DFD (Data Flow Diagram) — shows data flow between modules and services (include Level 0 and Level 1).
-🔷 IDEF0 Diagram — describes high-level business processes and decompositions.
-🏗 Class Diagram — object-oriented system structure with classes and relationships.
+## 🧩 Features
+
+- ✅ Email-based registration and authentication
+- 👤 Personal user dashboard with:
+  - Profile management
+  - Address and card management
+  - Order history
+- 🛍️ Product catalog with advanced filtering:
+  - By category, brand, collection, and gender
+- 🧾 Shopping cart and checkout
+- 🛠️ Admin dashboard:
+  - Product, brand, color, and size management
+  - Inventory and stock tracking
+- 🖼️ Media service for image uploading and delivery
+- 📦 Kafka-based communication between services
+
+## 📘 Diagrams (to include)
+
+- 📌 **Use Case Diagram**
+![Use Case](./images/usecase.png)
+
+- 🔄 **DFD (Data Flow Diagram)** – Data flow between system components
+- 🔷 **IDEF0 Diagram** – Business process decomposition
+- 🧭 **Activity Diagram** – User behavior and flow logic
+- 🏗 **Class Diagram** – Object structure of the system
+- 🗂 **Database Schema** – MongoDB collections and relations
+
+
